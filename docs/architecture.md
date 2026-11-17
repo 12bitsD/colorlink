@@ -54,6 +54,20 @@ Local, Agent, and Calendar writes use one alarm-operation pipeline. The preferre
 
 For the personal alarm-only control plane, a random User ID plus revocable permissions is the accepted first-version identity model; a separate device credential is optional hardening. See [clock-sync.md](clock-sync.md) for the identity, Link lifecycle, database, conflict, deletion, and recovery proposal.
 
+### Agent interface
+
+Decision confirmed on 2026-11-18: **HTTP/JSON is the only core Agent interface; no CLI will be maintained.** Named HTTP RPC endpoints keep the first version small:
+
+```text
+POST /v1/alarm.set
+POST /v1/alarm.cancel
+GET  /v1/alarm.list
+GET  /v1/device.status
+GET  /v1/operation.get
+```
+
+A future MCP server is only a thin adapter over these endpoints. `alarm.set` returns `ACCEPTED` with an operation ID; actual device execution is read separately through `operation.get`.
+
 ## Shared interface
 
 `packages/agent-core/src/cron.js` exposes two functions:
