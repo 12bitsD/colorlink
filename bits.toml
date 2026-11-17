@@ -1,0 +1,9 @@
+# Bits’s Coding Style v0.3.5
+exclude = [
+  "**/generated/**",
+  "**/vendor/**",
+  "**/node_modules/**",
+  "**/target/**",
+  "**/dist/**",
+  "**/build/**",
+]

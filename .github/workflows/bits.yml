@@ -1,0 +1,22 @@
+name: bits-style
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install bits
+        run: cargo install --git https://github.com/12bitsD/bits-style --tag v0.3.5 --locked
+      - name: Check changed code
+        run: bits style check --diff --commit origin/main

@@ -1,0 +1,262 @@
+{
+  "protocol": "bits.style.scan/v2",
+  "tool": {
+    "name": "bits",
+    "version": "0.3.5"
+  },
+  "style": {
+    "name": "Bits’s Coding Style",
+    "version": "0.3"
+  },
+  "status": "violation",
+  "coverage": {
+    "executed": [
+      "BCS001",
+      "BCS002",
+      "BCS003",
+      "BCS004",
+      "BCS005",
+      "BCS006",
+      "BCS007",
+      "BCS008",
+      "BCS009",
+      "BCS010",
+      "BCS011",
+      "BCS013",
+      "BCS014",
+      "BCS015"
+    ],
+    "not_implemented": [],
+    "partial": [
+      "BCS002",
+      "BCS003",
+      "BCS004",
+      "BCS005",
+      "BCS006",
+      "BCS008",
+      "BCS009",
+      "BCS010",
+      "BCS011",
+      "BCS013",
+      "BCS014"
+    ],
+    "not_applicable": [
+      "BCS012"
+    ]
+  },
+  "results": [
+    {
+      "rule_id": "BCS007",
+      "file": "packages/agent-core/src/cron.js",
+      "range": {
+        "start": {
+          "line": 3,
+          "column": 53
+        },
+        "end": {
+          "line": 3,
+          "column": 54
+        }
+      },
+      "message": "control-flow branches must use braces",
+      "actual": "unbraced_branch",
+      "expected": "braced_branch",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "BCS007",
+      "file": "packages/agent-core/src/cron.js",
+      "range": {
+        "start": {
+          "line": 4,
+          "column": 13
+        },
+        "end": {
+          "line": 4,
+          "column": 14
+        }
+      },
+      "message": "control-flow branches must use braces",
+      "actual": "unbraced_branch",
+      "expected": "braced_branch",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "BCS007",
+      "file": "packages/agent-core/src/cron.js",
+      "range": {
+        "start": {
+          "line": 9,
+          "column": 49
+        },
+        "end": {
+          "line": 9,
+          "column": 50
+        }
+      },
+      "message": "control-flow branches must use braces",
+      "actual": "unbraced_branch",
+      "expected": "braced_branch",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "BCS007",
+      "file": "packages/agent-core/src/cron.js",
+      "range": {
+        "start": {
+          "line": 11,
+          "column": 17
+        },
+        "end": {
+          "line": 11,
+          "column": 18
+        }
+      },
+      "message": "control-flow branches must use braces",
+      "actual": "unbraced_branch",
+      "expected": "braced_branch",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "BCS007",
+      "file": "packages/agent-core/src/cron.js",
+      "range": {
+        "start": {
+          "line": 14,
+          "column": 35
+        },
+        "end": {
+          "line": 14,
+          "column": 36
+        }
+      },
+      "message": "control-flow branches must use braces",
+      "actual": "unbraced_branch",
+      "expected": "braced_branch",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "BCS002",
+      "file": "packages/agent-core/src/cron.js",
+      "range": {
+        "start": {
+          "line": 18,
+          "column": 81
+        },
+        "end": {
+          "line": 18,
+          "column": 82
+        }
+      },
+      "message": "line exceeds 80 columns",
+      "actual": 100,
+      "expected": "<=80",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "BCS007",
+      "file": "packages/agent-core/src/cron.js",
+      "range": {
+        "start": {
+          "line": 20,
+          "column": 23
+        },
+        "end": {
+          "line": 20,
+          "column": 24
+        }
+      },
+      "message": "control-flow branches must use braces",
+      "actual": "unbraced_branch",
+      "expected": "braced_branch",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "BCS007",
+      "file": "packages/agent-core/src/cron.js",
+      "range": {
+        "start": {
+          "line": 21,
+          "column": 20
+        },
+        "end": {
+          "line": 21,
+          "column": 21
+        }
+      },
+      "message": "control-flow branches must use braces",
+      "actual": "unbraced_branch",
+      "expected": "braced_branch",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "BCS002",
+      "file": "scripts/check-clock.js",
+      "range": {
+        "start": {
+          "line": 5,
+          "column": 81
+        },
+        "end": {
+          "line": 5,
+          "column": 82
+        }
+      },
+      "message": "line exceeds 80 columns",
+      "actual": 94,
+      "expected": "<=80",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "BCS007",
+      "file": "scripts/check-clock.js",
+      "range": {
+        "start": {
+          "line": 6,
+          "column": 33
+        },
+        "end": {
+          "line": 6,
+          "column": 34
+        }
+      },
+      "message": "control-flow branches must use braces",
+      "actual": "unbraced_branch",
+      "expected": "braced_branch",
+      "fixable": false,
+      "severity": "violation",
+      "confidence": "high"
+    }
+  ],
+  "scan_errors": [],
+  "summary": {
+    "files_discovered": 3,
+    "files_scanned": 3,
+    "violations": 10,
+    "fixable_violations": 0,
+    "scan_errors": 0,
+    "files_fixed": 0,
+    "violations_fixed": 0,
+    "suppressed_violations": 0,
+    "warnings": 0,
+    "unsupported_files": 0
+  }
+}

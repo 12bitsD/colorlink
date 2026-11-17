@@ -9,7 +9,11 @@
   ],
   "scripts": {
     "check": "node scripts/check-clock.js",
-    "test": "node --test packages/agent-core/test/*.test.js"
+    "test": "node --test packages/agent-core/test/*.test.js",
+    "style": "bits style check . --baseline bits-baseline.json",
+    "style:diff": "bits style check --diff --commit origin/main",
+    "style:fix": "bits style fix --diff --commit origin/main",
+    "style:report": "bits style report ."
   },
   "engines": {
     "node": ">=20"
