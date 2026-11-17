@@ -2,6 +2,8 @@
 
 Status: **under review, not an implementation decision**. The current HTML prototype does not implement either topology.
 
+Scope: this document concerns **Clock App only**. Clock, Calendar, and Notes are separate apps with independent packages and releases. They may share one cloud backend, identity, and table-level authorization, but Clock is not a shared client for Calendar or Notes capabilities.
+
 ## The actual problem
 
 Clock is not only a local alarm UI. It is a ColorOS client whose capabilities must be reachable by a remote Agent. The cloud is a connection and coordination layer, not automatically the Agent or the executor of every task.
@@ -10,15 +12,15 @@ A concrete scenario:
 
 1. The user tells a remote Agent to create a 07:30 alarm.
 2. The Agent issues an `alarm.set` command with the user's permission.
-3. The ColorOS client receives it and asks the operating system to create the alarm.
-4. The client reports the real device result. “Cloud accepted” must not be shown as “alarm created.”
+3. Clock App receives it and asks ColorOS to create the alarm.
+4. Clock App reports the real device result. “Cloud accepted” must not be shown as “alarm created.”
 
 ## Two access paths
 
 ### A. Cloud-brokered access
 
 ```text
-Agent → Remote tool / MCP endpoint on cloud → relay → ColorOS client
+Agent → Remote tool / MCP endpoint on cloud → relay → Clock App
                                       ↑                 ↓
                                command record / offline queue
 ```
@@ -41,7 +43,7 @@ The phone maintains an outbound connection, so no public phone IP or port forwar
 ### B. Device-direct access
 
 ```text
-Agent → direct tool / MCP connection → ColorOS client
+Agent → direct tool / MCP connection → Clock App
 ```
 
 The client exposes the same alarm and task capabilities without routing each command through the broker. The cloud may still help with pairing and discovery, but it is not in the command path.

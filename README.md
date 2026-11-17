@@ -1,6 +1,6 @@
 # ColorLink
 
-Agent-native clock, calendar, and notes for ColorOS. Each app is released independently; shared modules keep Prompt jobs and the visual language consistent.
+Agent-native clock, calendar, and notes for ColorOS. **These are three separate apps, not one super-app.** Each has its own UI, package, version, and release; the monorepo only shares the backend contracts, authorization model, Prompt jobs, and visual language.
 
 ## Status
 
