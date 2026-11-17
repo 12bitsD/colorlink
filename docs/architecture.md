@@ -48,6 +48,12 @@ The cloud is a connection and coordination layer, not automatically the Agent or
 
 Cron scheduler ownership is a separate, currently open decision. A cloud scheduler can start a Prompt while the phone is offline, but live device data still needs the client; a device scheduler has different ColorOS reliability constraints. See [clock-connectivity.md](clock-connectivity.md) for the candidate flows, state contract, and open decisions.
 
+### Synchronization
+
+Local, Agent, and Calendar writes use one alarm-operation pipeline. The preferred transport is an authenticated outbound WebSocket Link with live push and reconnect catch-up, not business-data polling or inbound phone webhooks. The cloud stores the desired snapshot and ordered operations; Clock App stores the local execution snapshot and offline outbox.
+
+A password-free User ID experience still requires a revocable device credential. See [clock-sync.md](clock-sync.md) for the identity, database, conflict, deletion, and recovery proposal.
+
 ## Shared interface
 
 `packages/agent-core/src/cron.js` exposes two functions:
