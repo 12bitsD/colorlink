@@ -2,17 +2,19 @@
 
 Status: **recommended design, not implemented**. The user has confirmed three write sources (local, Agent, Calendar), a long-lived cloud/client link, and a preference for push rather than polling.
 
-## Identity without a password UI
+## Identity and permissions
 
-A personal service still needs authentication. `user_id` identifies the account; it is not a secret and must not authorize commands by itself.
+Decision confirmed on 2026-11-18: this is a personal, single-purpose deployment whose control plane only writes alarms. A **User ID plus permission management** is sufficient for the first version; a separate device secret is optional hardening, not a prerequisite.
 
-Use a one-time pairing link or QR code to bind:
+The User ID should be random and non-enumerable rather than a phone number or short readable name. The backend checks that the Link has `alarm.write` before accepting an operation. Permissions can be revoked without changing the client UI or introducing password login.
+
+Bind the account and device through:
 
 ```text
-user_id + device_id + link_id + device_secret
+user_id + device_id + link_id + permissions
 ```
 
-The client then keeps a long-lived outbound WebSocket connection. The user experiences no password login, while the backend can still revoke one lost device without changing the User ID or affecting other devices.
+The client keeps an outbound WebSocket connection. The accepted risk is that disclosure of a permitted User ID / Link could allow unwanted alarm writes; this is proportionate to the stated personal use case and can be revisited if Notes or other sensitive capabilities are added.
 
 ## Transport: push first, catch up on reconnect
 
@@ -32,6 +34,25 @@ ColorOS may suspend the Link. Therefore push alone is not a complete synchroniza
 5. The client also catches up after app restart or network recovery.
 
 A native push channel can be added later as a wake-up hint, but it is not required for correctness and should not carry the only copy of an operation.
+
+## Link lifecycle and remote routing
+
+A Link is a stable logical relationship, not one socket that must never disconnect. The backend keeps a Link registry:
+
+```text
+link_id → user_id, device_id, permissions, active connection, last_seen, last_applied_seq
+```
+
+Each new socket performs a small handshake:
+
+```text
+Client: HELLO { user_id, link_id, device_id, last_applied_seq }
+Cloud:  WELCOME { connection_id, current_server_seq }
+```
+
+`connection_id` identifies one ephemeral socket; `link_id` survives reconnects. The cloud routes Agent operations by `link_id`, never by phone IP. The remote Agent calls the cloud tool or MCP endpoint and does not open a separate connection to the phone.
+
+Heartbeat only maintains `ONLINE`, `STALE`, and `OFFLINE` connection state. Reconnect uses bounded backoff and the same `link_id`; catch-up uses `last_applied_seq`. Neither is application-data polling. Multiple remote devices can later share one User ID with distinct Links, while the first version may route to one default Clock device.
 
 ## One operation pipeline for all three entries
 
@@ -120,7 +141,7 @@ This keeps the first version small without pretending conflicting edits cannot h
 
 ## Still open
 
-- Whether the pairing secret is delivered by QR, short code, or a one-time link.
+- Whether the User ID / Link is delivered by QR, short code, or a copyable pairing link.
 - Which stale operations expire instead of executing late.
 - Whether a native push wake-up hint is worth its battery and platform cost.
 - How a conflict is presented when the same alarm was edited in two places while offline.

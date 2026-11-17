@@ -52,7 +52,7 @@ Cron scheduler ownership is a separate, currently open decision. A cloud schedul
 
 Local, Agent, and Calendar writes use one alarm-operation pipeline. The preferred transport is an authenticated outbound WebSocket Link with live push and reconnect catch-up, not business-data polling or inbound phone webhooks. The cloud stores the desired snapshot and ordered operations; Clock App stores the local execution snapshot and offline outbox.
 
-A password-free User ID experience still requires a revocable device credential. See [clock-sync.md](clock-sync.md) for the identity, database, conflict, deletion, and recovery proposal.
+For the personal alarm-only control plane, a random User ID plus revocable permissions is the accepted first-version identity model; a separate device credential is optional hardening. See [clock-sync.md](clock-sync.md) for the identity, Link lifecycle, database, conflict, deletion, and recovery proposal.
 
 ## Shared interface
 
