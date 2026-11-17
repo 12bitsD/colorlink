@@ -1,4 +1,4 @@
-# ColorLink Notes
+# Pocket Notes
 
 Planned scope: Markdown notes, reading, editing, and explicit per-note Agent permissions. Agent jobs receive only the notes granted by the user.
 

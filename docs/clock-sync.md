@@ -25,7 +25,7 @@ Clock App ───── outbound WebSocket Link ───── Cloud backend
 
 The cloud does not call an inbound HTTP webhook on the phone. New operations are pushed over the existing Link. Keepalive ping/pong is connection maintenance, not business-data polling.
 
-ColorOS may suspend the Link. Therefore push alone is not a complete synchronization protocol:
+Android may suspend the Link. Therefore push alone is not a complete synchronization protocol:
 
 1. While online, the cloud pushes new operations immediately.
 2. If the Link drops, the cloud retains pending operations.
@@ -58,7 +58,7 @@ Heartbeat only maintains `ONLINE`, `STALE`, and `OFFLINE` connection state. Reco
 
 ```text
 Local edit ───┐
-Agent call ───┼── alarm operation → cloud sequence → client apply → ColorOS execute → applied result
+Agent call ───┼── alarm operation → cloud sequence → client apply → Android execute → applied result
 Calendar link ─┘
 ```
 
@@ -88,7 +88,7 @@ Local storage (Room/SQLite in a native app) contains:
 - A local outbox for edits made while offline.
 - `last_server_seq` and local execution state.
 
-The local database, not the cloud, is used to schedule ColorOS alarms and restore them after reboot. A fresh install can restore the cloud snapshot and then schedule it locally.
+The local database, not the cloud, is used to schedule Android alarms and restore them after reboot. A fresh install can restore the cloud snapshot and then schedule it locally.
 
 `EXECUTED` is reported only after both the local database transaction and the native scheduling request succeed. Cloud acceptance alone never means the alarm exists on the phone.
 
@@ -97,7 +97,7 @@ The local database, not the cloud, is used to schedule ColorOS alarms and restor
 ### Local create or edit
 
 1. In one local transaction, update the alarm and append an outbox operation.
-2. Schedule or update the ColorOS alarm immediately.
+2. Schedule or update the Android alarm immediately.
 3. Send the operation over the Link.
 4. The cloud validates `operation_id` and `base_revision`, stores the operation and snapshot, and assigns `server_seq`.
 5. The client marks the outbox item acknowledged. A repeated operation does not create another alarm.
@@ -129,12 +129,12 @@ This keeps the first version small without pretending conflicting edits cannot h
 
 ## Agent Cron Jobs
 
-`agent_jobs` remains separate from `alarms`. It may reuse the same operation, idempotency, and acknowledgement ideas, but starting a Prompt is not a ColorOS alarm execution and must not share its success status.
+`agent_jobs` remains separate from `alarms`. It may reuse the same operation, idempotency, and acknowledgement ideas, but starting a Prompt is not a Android alarm execution and must not share its success status.
 
 ## Minimal implementation order
 
 1. Pair one device and maintain one authenticated WebSocket Link.
-2. Implement Agent → cloud operation → client apply → ColorOS execution → applied result.
+2. Implement Agent → cloud operation → client apply → Android execution → applied result.
 3. Add local outbox and reconnect catch-up using `server_seq`.
 4. Add revision conflicts, deletion tombstones, and operation expiry.
 5. Add Calendar through the same operation contract.

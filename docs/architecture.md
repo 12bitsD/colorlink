@@ -1,4 +1,4 @@
-# ColorLink architecture
+# Pocket architecture
 
 ## Three applications, not one
 
@@ -24,13 +24,19 @@ The three apps share contracts, not screens or business logic. Each app can be b
 - **Agent Core**: the small shared interface for validating Prompt jobs and generating Cron expressions.
 - **Design System**: semantic monochrome tokens and shared component styles.
 
+## Android platform scope
+
+Pocket is a **general Android project**, not a ColorOS-only project. Shared behavior uses standard Android capabilities and must not depend on OPPO-specific packages.
+
+ColorOS is a deep-optimization target, not a platform boundary. Manufacturer-specific handling is isolated behind device adapters and permission guidance, including background launch, battery whitelist, autostart, and background pop-up settings. Other Android devices use the same apps and contracts without the ColorOS path.
+
 ## Two execution paths
 
 ### Personal reminder
 
 ```text
-Clock App → ColorOS exact alarm or notification → user
-Calendar App → reminder contract → Clock App → ColorOS exact alarm or notification
+Clock App → Android exact alarm or notification → user
+Calendar App → reminder contract → Clock App → Android exact alarm or notification
 ```
 
 Each device app owns its own behavior and permissions. Calendar does not become part of Clock; it uses the reminder contract when cross-app behavior is needed.
@@ -46,7 +52,7 @@ Agent → cloud broker or optional direct adapter → the authorized app
 
 The cloud is a connection and coordination layer, not automatically the Agent or executor. Cloud-brokered and device-direct access are two transports for the same capabilities. The current recommendation is cloud first with direct access as a later option, but this is still under review.
 
-Cron scheduler ownership is a separate, currently open decision. A cloud scheduler can start a Prompt while the phone is offline, but live device data still needs the client; a device scheduler has different ColorOS reliability constraints. See [clock-connectivity.md](clock-connectivity.md) for the candidate flows, state contract, and open decisions.
+Cron scheduler ownership is a separate, currently open decision. A cloud scheduler can start a Prompt while the phone is offline, but live device data still needs the client; a device scheduler has different Android reliability constraints. See [clock-connectivity.md](clock-connectivity.md) for the candidate flows, state contract, and open decisions.
 
 ### Synchronization
 
@@ -80,10 +86,10 @@ The browser prototype and Node tests cross this same interface. More schedule ty
 ## Near-term implementation order
 
 1. Align the shared capability and acknowledgement contracts.
-2. Validate one cloud-brokered alarm command end to end on ColorOS.
+2. Validate one cloud-brokered alarm command end to end on Android.
 3. Add offline expiry and idempotent delivery before expanding capabilities.
 4. Decide Agent Cron scheduler ownership independently of the access transport.
 5. Add Calendar and Notes using the same identity and permission model.
-6. Build each app as an independent ColorOS package; shared code must not collapse their package or release independence.
+6. Build each app as an independent Android package; shared code must not collapse their package or release independence.
 
 A live broker, scheduler, authentication, Android packaging, and production synchronization are intentionally outside the current prototype.

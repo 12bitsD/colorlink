@@ -6,13 +6,13 @@ Scope: this document concerns **Clock App only**. Clock, Calendar, and Notes are
 
 ## The actual problem
 
-Clock is not only a local alarm UI. It is a ColorOS client whose capabilities must be reachable by a remote Agent. The cloud is a connection and coordination layer, not automatically the Agent or the executor of every task.
+Clock is not only a local alarm UI. It is a Android client whose capabilities must be reachable by a remote Agent. The cloud is a connection and coordination layer, not automatically the Agent or the executor of every task.
 
 A concrete scenario:
 
 1. The user tells a remote Agent to create a 07:30 alarm.
 2. The Agent issues an `alarm.set` command with the user's permission.
-3. Clock App receives it and asks ColorOS to create the alarm.
+3. Clock App receives it and asks Android to create the alarm.
 4. Clock App reports the real device result. “Cloud accepted” must not be shown as “alarm created.”
 
 ## Two access paths
@@ -57,7 +57,7 @@ The client exposes the same alarm and task capabilities without routing each com
 **Costs**
 
 - A sleeping or offline phone cannot serve requests.
-- Mobile NAT, ColorOS background limits, and inbound connectivity make remote direct access unreliable.
+- Mobile NAT, Android background limits, and inbound connectivity make remote direct access unreliable.
 - Authentication, tunneling, revocation, and discovery move onto the direct path.
 
 ## Recommendation: shared capabilities, cloud first, direct optional
@@ -78,7 +78,7 @@ The access path does not determine who triggers an Agent Cron Job.
 | Scheduler owner | Behavior | Main constraint |
 | --- | --- | --- |
 | Cloud | At the scheduled time, starts a fresh Agent Prompt run; uses the broker only if device capabilities are needed | Prompts needing live local data still require an online device or an explicit data snapshot |
-| Device | At the scheduled time, the client asks the Agent to start a Prompt run | ColorOS delivery is appropriate for alarms, but high-frequency or business-critical Cron needs separate reliability validation |
+| Device | At the scheduled time, the client asks the Agent to start a Prompt run | Android delivery is appropriate for alarms, but high-frequency or business-critical Cron needs separate reliability validation |
 
 Personal alarms always use the device scheduler. Agent jobs should declare their scheduler owner in the data contract even if the first version supports only one. The UI does not need to expose this implementation detail.
 
@@ -95,7 +95,7 @@ The cloud should provide:
 The cloud is not inherently:
 
 - The Agent itself or the model provider.
-- The owner of local alarm execution; only ColorOS can confirm that.
+- The owner of local alarm execution; only Android can confirm that.
 - A required copy of note contents or Prompt results. Retention must be separately chosen.
 
 ## State contract
@@ -130,7 +130,7 @@ These are design changes to align before modifying the interactive prototype.
 
 ## Minimum validation sequence
 
-1. One cloud relay command creates a real ColorOS alarm and returns a device acknowledgement.
+1. One cloud relay command creates a real Android alarm and returns a device acknowledgement.
 2. The same idempotency key repeated twice creates only one alarm.
 3. An offline command becomes `OFFLINE_QUEUED`, then executes or expires according to policy after reconnect.
 4. Revoking an Agent grant prevents new commands without deleting existing local alarms.

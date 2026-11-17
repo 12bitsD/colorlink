@@ -1,6 +1,6 @@
 {
-  "name": "@colorlink/notes",
+  "name": "@pocket/notes",
   "version": "0.0.0",
   "private": true,
-  "description": "ColorLink Notes app (planned)"
+  "description": "Pocket Notes app (planned)"
 }

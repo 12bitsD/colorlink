@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>ColorLink Clock · Terminal</title>
+  <title>Pocket Clock · Terminal</title>
   <!-- 2026-11-18 用户反馈“本质上是 Cronjob 定时启动一个 Prompt”：Agent 入口以 Prompt 与调度计划为核心，不沿用普通闹钟的提醒语义。 -->
   <style>
     :root { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; --target: 48px; }
@@ -98,7 +98,7 @@
   <link rel="stylesheet" href="../../packages/design-system/terminal.css">
 </head>
 <body data-theme="white">
-  <main class="phone" aria-label="ColorLink Clock 编辑器文档风交互稿">
+  <main class="phone" aria-label="Pocket Clock 编辑器文档风交互稿">
     <header class="topbar">
       <div class="title-group"><button class="icon-button back-button" id="back-button" aria-label="返回闹钟" hidden>←</button><h1 id="page-title" tabindex="-1">闹钟</h1></div>
       <div class="top-actions"><button class="text-button theme-toggle" id="theme-toggle" aria-label="切换黑白主题">B/W</button><button class="text-button" id="settings-button">通讯</button><button class="icon-button" id="create-button" aria-label="新建">＋</button></div>
@@ -237,7 +237,7 @@
         <fieldset><legend>执行完成后</legend><div class="choices"><label class="choice"><input type="radio" name="notify" value="仅异常提醒" checked><span>仅异常提醒</span></label><label class="choice"><input type="radio" name="notify" value="完成后提醒"><span>总是提醒</span></label></div></fieldset>
         <details class="advanced"><summary>上下文与失败策略</summary><div class="field"><label for="scope">允许读取</label><select id="scope" name="scope"><option>指定笔记</option><option>指定日历</option><option>仅当前 Prompt</option></select></div><div class="field"><label for="missed">离线或超期</label><select id="missed" name="missed"><option>恢复后补做</option><option>超期跳过</option><option>转为人工处理</option></select></div></details>`;
     }
-    const cronExpression = ColorLinkAgent.cronExpression;
+    const cronExpression = PocketAgent.cronExpression;
     function updateCronPreview() {
       const preview = form.querySelector('#cron-preview');
       if (!preview) return;
@@ -348,7 +348,7 @@
       if ((kind === 'alarm' && form.dataset.mode === 'agent') || kind === 'agent') {
         const schedule = data.get('schedule');
         const time = data.get('agentTime');
-        const cronJob = ColorLinkAgent.createCronJob({ prompt: data.get('prompt'), schedule, time, notify: data.get('notify') });
+        const cronJob = PocketAgent.createCronJob({ prompt: data.get('prompt'), schedule, time, notify: data.get('notify') });
         jobs.push({ title: cronJob.prompt, meta: `SCHEDULE: ${schedule} ${time} · ${cronJob.schedule.timeZone}\nCRON: ${cronJob.cron} · ${cronJob.notify}`, status: cronJob.status });
         dialog.close(); navigate('alarm'); toast('Cron Job 已保存，将按时启动 Prompt');
       } else if (kind === 'alarm') {

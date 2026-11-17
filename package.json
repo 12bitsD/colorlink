@@ -1,8 +1,8 @@
 {
-  "name": "colorlink",
+  "name": "pocket",
   "version": "0.1.0",
   "private": true,
-  "description": "Agent-native clock, calendar, and notes for ColorOS",
+  "description": "Agent-native clock, calendar, and notes for Android",
   "workspaces": [
     "apps/*",
     "packages/*"

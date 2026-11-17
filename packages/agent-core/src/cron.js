@@ -1,7 +1,7 @@
 (function (root, factory) {
   const api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
-  if (root) root.ColorLinkAgent = api;
+  if (root) root.PocketAgent = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   const scheduleDays = Object.freeze({ '每天': '*', '工作日': '1-5', '每周五': '5' });
 

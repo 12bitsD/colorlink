@@ -1,6 +1,8 @@
-# ColorLink
+# Pocket
 
-Agent-native clock, calendar, and notes for ColorOS. **These are three separate apps, not one super-app.** Each has its own UI, package, version, and release; the monorepo only shares the backend contracts, authorization model, Prompt jobs, and visual language.
+Agent-native clock, calendar, and notes for Android. **These are three separate apps, not one super-app.** Each has its own UI, package, version, and release; the monorepo only shares the backend contracts, authorization model, Prompt jobs, and visual language.
+
+Pocket targets general Android. ColorOS receives deep optimizations for background execution, autostart, battery policies, and permission guidance without restricting the other apps or devices to OPPO.
 
 ## Status
 

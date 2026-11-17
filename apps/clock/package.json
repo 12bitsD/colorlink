@@ -1,6 +1,6 @@
 {
-  "name": "@colorlink/clock",
-  "version": "0.1.0",
+  "name": "@pocket/clock",
+  "version": "0.1.1",
   "private": true,
-  "description": "ColorLink Clock interactive prototype"
+  "description": "Pocket Clock interactive prototype"
 }
