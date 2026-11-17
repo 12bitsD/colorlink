@@ -8,7 +8,7 @@ Agent-native clock, calendar, and notes for ColorOS. Each app is released indepe
 - **Agent Core**: tested Prompt + local-time schedule → five-field Cron contract.
 - **Calendar / Notes**: scoped and registered in the monorepo; implementation has not started.
 
-This repository does not yet produce an Android APK or connect to a live cloud Agent.
+This repository does not yet produce an Android APK or connect to a live cloud Agent. Clock's cloud-brokered and device-direct access paths are documented as an [open architecture proposal](docs/clock-connectivity.md); neither is presented as implemented.
 
 ## Layout
 

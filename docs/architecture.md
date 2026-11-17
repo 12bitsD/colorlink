@@ -20,13 +20,15 @@ Clock / Calendar → ColorOS exact alarm or notification → user
 
 The device owns precise alarm behavior, permissions, and offline delivery.
 
-### Agent Cron Job
+### Agent access and Cron Jobs
 
 ```text
-Prompt + local-time schedule → cloud scheduler → new Agent run → result / notification
+Agent → cloud broker or optional direct adapter → ColorOS client
 ```
 
-The cloud scheduler owns recurring execution. An Agent run does not depend on the phone being awake; the phone is the authoring and result surface. Each trigger starts a fresh Prompt run with only the granted context.
+The cloud is a connection and coordination layer, not automatically the Agent or executor. Cloud-brokered and device-direct access are two transports for the same capabilities. The current recommendation is cloud first with direct access as a later option, but this is still under review.
+
+Cron scheduler ownership is a separate, currently open decision. A cloud scheduler can start a Prompt while the phone is offline, but live device data still needs the client; a device scheduler has different ColorOS reliability constraints. See [clock-connectivity.md](clock-connectivity.md) for the candidate flows, state contract, and open decisions.
 
 ## Shared interface
 
@@ -39,10 +41,11 @@ The browser prototype and Node tests cross this same interface. More schedule ty
 
 ## Near-term implementation order
 
-1. Persist Clock jobs and expose them through a small local JSON store.
-2. Add one cloud scheduler adapter that accepts the shared Cron Job contract.
-3. Add Calendar with local notifications and the existing reminder link.
-4. Add Notes with explicit per-note Agent permissions.
-5. Wrap the shared design and contracts in native ColorOS shells where device integration is required.
+1. Align the shared capability and acknowledgement contracts.
+2. Validate one cloud-brokered alarm command end to end on ColorOS.
+3. Add offline expiry and idempotent delivery before expanding capabilities.
+4. Decide Agent Cron scheduler ownership independently of the access transport.
+5. Add Calendar and Notes using the same identity and permission model.
+6. Wrap the shared design and contracts in native ColorOS shells where device integration is required.
 
-A live scheduler, authentication, Android packaging, and production synchronization are intentionally outside the current prototype.
+A live broker, scheduler, authentication, Android packaging, and production synchronization are intentionally outside the current prototype.
