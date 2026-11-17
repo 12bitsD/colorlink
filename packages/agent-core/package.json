@@ -1,0 +1,7 @@
+{
+  "name": "@colorlink/agent-core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared Prompt and Cron Job contract for ColorLink apps",
+  "main": "src/cron.js"
+}

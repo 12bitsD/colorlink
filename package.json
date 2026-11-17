@@ -1,0 +1,17 @@
+{
+  "name": "colorlink",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent-native clock, calendar, and notes for ColorOS",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "check": "node scripts/check-clock.js",
+    "test": "node --test packages/agent-core/test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
