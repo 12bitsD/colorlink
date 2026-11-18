@@ -46,4 +46,4 @@ calendar-v0.1.0
 notes-v0.1.0
 ```
 
-See [docs/releases.md](docs/releases.md) and [docs/architecture.md](docs/architecture.md).
+See [docs/releases.md](docs/releases.md) and [docs/architecture.md](docs/architecture.md). The [Backend Architecture v1](docs/backend-architecture-v1.md) is a scenario-driven proposal currently under review; it is not an implementation commitment.
